@@ -1,10 +1,6 @@
-# webpack-react-mobx
-react基础框架：状态管理mobx、webpack、react
+# js代码库
+    算法
+    数据模式
+    插件
+    ...
 
-# gitTest
-date:0934
-fskjafhsdkjhf
-
-fhsdkjfhabcdejfklsdjfkljsdlksk
-
-commit 之后，还未push
