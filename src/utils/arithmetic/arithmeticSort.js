@@ -1,12 +1,16 @@
 /**
- * @description 算法文件
+ * @description 算法文件：排序和搜索。画图
  */
+
 
 /**
  * @description 冒泡排序：升序 / 降序。
  *  1，第一位跟第二位对比，以此类推，最后一位是最大或最小。
  *  2，有多少位，就循环多少次
  *  3，但其实，每比一次，应该少一轮（最后一位不对比）
+ * @param 
+ * @returns void
+ * @author LLQ
  */
 
 Array.prototype.sortMP = function () {
@@ -30,12 +34,17 @@ Array.prototype.sortMP = function () {
  *  3，以此类推，执行n -1遍
  */
 Array.prototype.sortSelect = function () {
-    var arr = []
-    var len = this.length;
-    for (let i = 0; i < len - 1; i++) {
-        if (this[i]) {
-
+    for (let i = 0; i < this.length - 1; i++) {
+        let indexMin = i
+        for (let j = i; j < this.length; j++) { //比过的就不比了，从i开始
+            if (this[j] < this[indexMin]) {
+                indexMin = j //暂时拿到最小值，接着跟该最小值继续比
+            }
         }
+        const temp = this[i]
+        this[i] = this[indexMin] //放置在i位置
+        this[indexMin] = temp
+
     }
 }
 
@@ -45,8 +54,7 @@ Array.prototype.sortSelect = function () {
  * 2, 记录当前的位置，不断的与他前面的对比。
  */
 Array.prototype.sortInsert = function () {
-    let len = this.length
-    for (let i = 1; i < len; i++) {
+    for (let i = 1; i < this.length; i++) {
         const cent = this[i]
         let j = i;
         while (j > 0) {
@@ -98,10 +106,38 @@ Array.prototype.mergeSort = function () {
     res.forEach((n, i) => { this[i] = n }) //将得到的结果赋值给原数组
 }
 
+/**
+ * @description 快速排序。
+ * 1，从数组中，任意选择一个‘基准 ’，所有比基准小的元素，放在基准前面。比基准大的元素放在基准的后面。
+ * 2，递归的对基准前后的子数组进行分区。
+ */
+Array.prototype.quickSort = function () {
+    const rec = (arr) => {
+        if (arr.length <= 1) { return arr; }
+        const left = []
+        const right = []
+        let mid = arr[0] //定义一个基准,所以从第二位开始 //  4 - 3
+        for (let i = 1; i < arr.length; i += 1) {
+            if (arr[i] < mid) {
+                left.push(arr[i])  // 3 , 1 - 1
+            } else {
+                right.push(arr[i]) // 9
+            }
+        }
+        return [...rec(left), mid, ...rec(right)] //return 不会马上返回，会等return里面的执行完才会返回
+        // 1，【【1，3，。。】，4，9】。走第二遍，return是个独立的整体
+    }
+    // 递归执行完，才会执行外面的代码
+    const res = rec(this)
+    // 拷贝给原数组
+    res.forEach((n, i) => {
+        this[i] = n
+    })
+}
 
 
 
 
-var sortArr = [4, 3, 5, 2, 9, 6, 1, 7, 8]
-// sortArr.sortInsert()
+var sortArr = [4, 3, 9, 1]
+// sortArr.quickSort()
 // console.log(sortArr)
